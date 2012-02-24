@@ -24,8 +24,10 @@ app.get('/', routes.index);
 
 app.get('/update', function (req, res) {
 	exec('git stash; git pull', function (error, stdout, stderr) {
+		console.log(stdout);
 		res.send(stdout.replace(/\n/, '<br />'));
 	});
+	console.log('Updating...');
 });
 
 app.listen(3003);
