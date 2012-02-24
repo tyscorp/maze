@@ -2,3 +2,10 @@ body
 {
 	background-color: #222222;
 }
+
+#content
+{
+	width: 800px;
+	margin: auto;
+	padding-top: 32px;
+}
