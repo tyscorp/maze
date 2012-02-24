@@ -14,7 +14,7 @@ Maze.Player = (function () {
 
 	Player.prototype.draw = function (ctx) {
 		ctx.fillStyle = '#000000';
-		ctx.fillRect(this.x + 11/** size + 2*/, this.y /** size + 2*/, size - 4, size - 4);
+		ctx.fillRect(this.x /** size + 2*/, this.y /** size + 2*/, size - 4, size - 4);
 	}
 	
 	return Player;
