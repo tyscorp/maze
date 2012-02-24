@@ -11,6 +11,10 @@ Maze.Player = (function () {
 		this.x += x;
 		this.y += y;
 	}
+	
+	Player.prototype.getPos = function () {
+		return {"x":this.x,"y":this.y}; //will this even work??
+	}
 
 	Player.prototype.draw = function (ctx) {
 		ctx.fillStyle = '#000000';
