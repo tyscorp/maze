@@ -1,6 +1,6 @@
 Maze.Player = (function () {
 
-	var SIZE = 30;
+	var SIZE = 16;
 
 	var Player = function (x, y) {
 		this.x = x;
