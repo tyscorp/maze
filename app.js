@@ -26,7 +26,7 @@ app.get('/update', function (req, res) {
 	exec('git stash; git pull', function (error, stdout, stderr) {
 		res.send(stdout);
 	});
-}
+});
 
 app.listen(3003);
 
