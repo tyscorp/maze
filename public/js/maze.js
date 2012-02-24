@@ -1,22 +1,27 @@
 // global context
 Maze = {};
-Maze.DIM = { 'width': 50, 'height': 40 };
+
+Maze.SIZE = 20;
+Maze.DIM = { 'width': Math.floor(800/Maze.SIZE), 'height': Math.floor(640/Maze.SIZE) };
 
 $(function () {
 
 	var canvas = $('#c').get(0);
 	var ctx = canvas.getContext('2d');
 	
-	var player = new Maze.Player(25, 20);
+	var player = new Maze.Player(Math.floor(Maze.DIM.width/2), Math.floor(Maze.DIM.height/2));
 	var level = new Maze.Level();
 	
 	if (window.location.hash) {
-		Math.seedrandom(window.location.hash.substring(1));
+		Maze.seed = Math.seedrandom(window.location.hash.substring(1));
 	}
 	else {
-		var seed = Math.seedrandom();
-		//window.location.hash = '#' + seed;
+		Maze.seed = Math.seedrandom(Date.now());
+		window.location.hash = '#' + Maze.seed;
 	}
+	
+	console.log('seed: ' + Maze.seed);
+	
 	
 	window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 		window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function (fn) { fn.call(); };

@@ -1,7 +1,5 @@
 Maze.Player = (function () {
 
-	var SIZE = 16;
-
 	var Player = function (x, y) {
 		this.x = x;
 		this.y = y;
@@ -41,7 +39,7 @@ Maze.Player = (function () {
 
 	Player.prototype.draw = function (ctx) {
 		ctx.fillStyle = '#000000';
-		ctx.fillRect(this.x * SIZE + 2, this.y * SIZE + 2, SIZE - 4, SIZE - 4);
+		ctx.fillRect(this.x * Maze.SIZE + 4, this.y * Maze.SIZE + 4, Maze.SIZE - 8, Maze.SIZE - 8);
 	}
 	
 	return Player;

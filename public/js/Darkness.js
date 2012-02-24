@@ -33,7 +33,7 @@ Maze.Darkness = (function () {
 			{
 				if (darkArray[x][y] === true)
 				{
-					ctx.fillRect(x * 16, y * 16, 16, 16);
+					ctx.fillRect(x * Maze.SIZE, y * Maze.SIZE, Maze.SIZE, Maze.SIZE);
 				}
 			}
 		}
