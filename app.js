@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 var express = require('express');
+var fs = require('fs');
 var exec = require('child_process').exec;
 
 var app = module.exports = express.createServer();

@@ -7,6 +7,7 @@ Maze.Level = (function () {
 	var Level = function () {	
 		darkness = new Maze.Darkness();
 		walls = new Maze.Walls();
+		darkness.reveal(walls.exit.x, walls.exit.y);
 	};
 	
 	Level.prototype.draw = function (ctx) {
@@ -14,14 +15,12 @@ Maze.Level = (function () {
 		darkness.draw(ctx);
 	};
 	
-	Level.prototype.processCollision = function (x, y) {
-		var collided = walls.processCollision(x, y);
+	Level.prototype.processCollision = function (x, y, dir) {
+		var newPos = walls.processCollision(x, y, dir);
 		
-		if (!collided) {
-			darkness.processCollision(x, y);
-		}
+		darkness.processCollision(newPos.x, newPos.y, walls.getArray()[newPos.x][newPos.y]);
 		
-		return collided;
+		return newPos;
 	};
 	
 	return Level;

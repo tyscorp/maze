@@ -5,35 +5,22 @@ Maze.Player = (function () {
 		this.y = y;
 	};
 
-	Player.prototype.move = function (x, y, level) {
-		var origX = this.x;
-		var origY = this.y;
+	Player.prototype.move = function (dir, level) {
+		var newPos = level.processCollision(this.x, this.y, dir);
 		
-		this.x += x;
-		this.y += y;
-
-		if (this.x < 0) {
-			this.x = 0;
-		}
-		else if (this.x > Maze.DIM.width - 1) {
-			this.x = Maze.DIM.width - 1;
-		}
-		else if (this.y < 0) {
-			this.y = 0;
-		}
-		else if (this.y > Maze.DIM.height - 1) {
-			this.y = Maze.DIM.width - 1;
+		this.x = newPos.x;
+		this.y = newPos.y;
+		
+		if (this.x === 0 || this.x === Maze.DIM.width - 1 || this.y === 0 || this.y === Maze.DIM.height - 1) {
+			return true;
 		}
 		
-		if (level.processCollision(this.x, this.y)) {
-			this.x = origX;
-			this.y = origY;
-		}
+		return false;
 	}
 	
 	Player.prototype.getPos = function () {
-		return {'x': this.x,
-			'y': this.y
+		return { x: this.x,
+			y: this.y
 		};
 	}
 

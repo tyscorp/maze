@@ -20,8 +20,22 @@ Maze.Darkness = (function () {
 		return darkArray;				
 	};
 	
-	Darkness.prototype.processCollision = function (x, y) {
+	Darkness.prototype.processCollision = function (x, y, walls) {
 		darkArray[x][y] = false;
+		
+	/*	if (!(walls & Maze.DIR.LEFT)) {
+			darkArray[x - 1][y] = false;
+		}
+		if (!(walls & Maze.DIR.UP)) {
+			darkArray[x][y - 1] = false;
+		}
+		if (!(walls & Maze.DIR.RIGHT)) {
+			darkArray[x + 1][y] = false;
+		}
+		if (!(walls & Maze.DIR.DOWN)) {
+			darkArray[x][y + 1] = false;
+		}*/
+		
 	};
 	
 	Darkness.prototype.draw = function (ctx) {
@@ -38,6 +52,10 @@ Maze.Darkness = (function () {
 			}
 		}
 
+	};
+	
+	Darkness.prototype.reveal = function (x, y) {
+		darkArray[x][y] = false;
 	};
 	
 	return Darkness;
