@@ -47,7 +47,7 @@ $(function () {
 			state = STATE.START;
 			requestAnimationFrame(draw);
 		}
-	}, 3000);
+	}, 5000);
 
 	
 	// set random seed
@@ -56,7 +56,6 @@ $(function () {
 	}
 	else {
 		Maze.seed = Date.now();
-		window.location.hash = '#' + Maze.seed;
 	}
 	
 	$('#samemaze').attr('href', '/#' + Maze.seed);
