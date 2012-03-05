@@ -39,7 +39,7 @@ Maze.Walls = (function () {
 			this.wallsArray[Maze.DIM.width - 2][y] |= Maze.DIR.RIGHT;
 		}
 		
-		this.createExit();
+		this.createExits();
 	};
 	
 	Walls.prototype.getArray = function () {
@@ -71,7 +71,7 @@ Maze.Walls = (function () {
 	};
 	
 	Walls.prototype.draw = function (ctx) {
-		ctx.fillStyle = 'black';
+		ctx.fillStyle = 'orange';
 		for (var x = 0; x < Maze.DIM.width; x++)
 		{
 			for (var y = 0; y < Maze.DIM.height; y++)
@@ -96,7 +96,7 @@ Maze.Walls = (function () {
 	var total = (Maze.DIM.width - 2) * (Maze.DIM.height - 2) - 1;
 	var stack = [];
 	
-	// this implementation is bfs.
+	// this implementation is dfs.
 	Walls.prototype.generate = function (x, y) {
 		var current = { x: x, y: y };
 	
@@ -155,36 +155,52 @@ Maze.Walls = (function () {
 		}
 	};
 	
-	Walls.prototype.createExit = function () {
+	Walls.prototype.createExits = function () {
 		var side = Math.floor(Math.random()*4);
-		this.exit = {};
+		var side2;
 		
-		switch (side) {
-			case 0: // left
-				this.exit.x = 0;
-				this.exit.y = Math.floor(Math.random()*Maze.DIM.height);
-				this.wallsArray[this.exit.x + 1][this.exit.y] -= Maze.DIR.LEFT;
-				break;
-				
-			case 1: // up
-				this.exit.x = Math.floor(Math.random()*Maze.DIM.width);
-				this.exit.y = 0;
-				this.wallsArray[this.exit.x][this.exit.y + 1] -= Maze.DIR.UP;
-				break;
-				
-			case 2: // right
-				this.exit.x = Maze.DIM.width - 1;
-				this.exit.y = Math.floor(Math.random()*Maze.DIM.height);
-				this.wallsArray[this.exit.x - 1][this.exit.y] -= Maze.DIR.RIGHT;
-				break;
-				
-			case 3: // down
-				this.exit.x = Math.floor(Math.random()*Maze.DIM.width);
-				this.exit.y = Maze.DIM.height - 1;
-				this.wallsArray[this.exit.x][this.exit.y - 1] -= Maze.DIR.DOWN;
-				break;
-		}
-		this.wallsArray[this.exit.x][this.exit.y] = Maze.DIR.NONE;
+		var derp = function (side) {
+			var exit = {};
+			
+			switch (side) {
+				case 0: // left
+					exit.x = 0;
+					exit.y = 1 + Math.floor(Math.random() * (Maze.DIM.height - 2));
+					this.wallsArray[exit.x + 1][exit.y] -= Maze.DIR.LEFT;
+					side2 = 2;
+					break;
+					
+				case 1: // up
+					exit.x = 1 + Math.floor(Math.random() * (Maze.DIM.width - 2));
+					exit.y = 0;
+					this.wallsArray[exit.x][exit.y + 1] -= Maze.DIR.UP;
+					side2 = 3;
+					break;
+					
+				case 2: // right
+					exit.x = Maze.DIM.width - 1;
+					exit.y = 1 + Math.floor(Math.random() * (Maze.DIM.height - 2));
+					this.wallsArray[exit.x - 1][exit.y] -= Maze.DIR.RIGHT;
+					side2 = 0;
+					break;
+					
+				case 3: // down
+					exit.x = 1 + Math.floor(Math.random() * (Maze.DIM.width - 2));
+					exit.y = Maze.DIM.height - 1;
+					this.wallsArray[exit.x][exit.y - 1] -= Maze.DIR.DOWN;
+					side2 = 1;
+					break;
+			}
+			
+			return exit;
+		}.bind(this);
+	
+		this.exit1 = derp(side);
+		this.exit2 = derp(side2);
+		
+		
+		this.wallsArray[this.exit1.x][this.exit1.y] = Maze.DIR.NONE;
+		this.wallsArray[this.exit2.x][this.exit2.y] = Maze.DIR.NONE;
 	};
 	
 	return Walls;

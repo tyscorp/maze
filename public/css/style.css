@@ -9,9 +9,10 @@ body
 {
 	width: 800px;
 	margin: auto;
-	padding-top: 32px;
 }
 
 #fix {
 	font-family: fixedsys;
+	position: fixed;
+	margin-top: -1000px;
 }

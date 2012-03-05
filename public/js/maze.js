@@ -40,6 +40,14 @@ $(function () {
 		state = STATE.START;
 		setTimeout(function () { requestAnimationFrame(draw) }, 100);
 	};
+	
+	// if that fails
+	setTimeout(function () {
+		if(state === STATE.LOADING) {
+			state = STATE.START;
+			requestAnimationFrame(draw);
+		}
+	}, 3000);
 
 	
 	
@@ -98,7 +106,6 @@ $(function () {
 	$('body').keydown(function (event) {
 		if (state === STATE.START) {
 			// start game
-			$('span').text('thanks');
 			state = STATE.INGAME;
 			player.move(-1, level);
 			requestAnimationFrame(draw);
