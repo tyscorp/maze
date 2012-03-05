@@ -50,20 +50,25 @@ $(function () {
 	}, 3000);
 
 	
-	
-	var player = new Maze.Player(Math.floor(Maze.DIM.width/2), Math.floor(Maze.DIM.height/2));
-	var level = new Maze.Level();
-	
-	/*if (window.location.hash) {
-		Maze.seed = Math.seedrandom(window.location.hash.substring(1));
+	// set random seed
+	if (window.location.hash) {
+		Maze.seed = window.location.hash.substring(1);
 	}
 	else {
-		Maze.seed = Math.seedrandom(Date.now());
+		Maze.seed = Date.now();
 		window.location.hash = '#' + Maze.seed;
 	}
 	
-	console.log('seed: ' + Maze.seed);*/
+	$('#samemaze').attr('href', '/#' + Maze.seed);
 	
+	$('#samemaze').click(function () {
+		window.location.reload()
+	});
+	
+	var player = new Maze.Player(Math.floor(Maze.DIM.width/2), Math.floor(Maze.DIM.height/2));
+	var level = new Maze.Level();
+
+	var startTime;
 	
 	window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 		window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function (fn) { fn.call(); };
@@ -88,7 +93,7 @@ $(function () {
 			case STATE.END:
 				ctx.fillStyle = '#000000';
 				ctx.font = '48pt fixedsys';
-				ctx.fillText('that was maze.', 180, 300);
+				ctx.fillText('that was maze.', 160, 300);
 				break;
 		}
 		
@@ -98,6 +103,7 @@ $(function () {
 		if (state === STATE.START) {
 			// start game
 			state = STATE.INGAME;
+			startTime = Date.now();
 			player.move(-1, level);
 			requestAnimationFrame(draw);
 		}
@@ -107,6 +113,7 @@ $(function () {
 		if (state === STATE.START) {
 			// start game
 			state = STATE.INGAME;
+			startTime = Date.now();
 			player.move(-1, level);
 			requestAnimationFrame(draw);
 		}
@@ -130,11 +137,15 @@ $(function () {
 			
 			if (player.move(dir, level)) {
 				state = STATE.END;
-				$.get("/win");
+				$('#win').css('display', 'block');
+				$.get("/win/?seed=" + Maze.seed + "&time=" + (Date.now() - startTime));
+				
 			}
 			requestAnimationFrame(draw);
 		}
 	});
+	
+	
 	
 	requestAnimationFrame(draw);
 });

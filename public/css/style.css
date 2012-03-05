@@ -1,12 +1,10 @@
-body
-{
+body {
 	background-color: #222222;
 	margin: 0;
 	padding: 0;
 }
 
-#content
-{
+#content {
 	width: 800px;
 	margin: auto;
 }
@@ -15,4 +13,12 @@ body
 	font-family: fixedsys;
 	position: fixed;
 	margin-top: -1000px;
+}
+
+#win {
+	display: none;
+	font-family: fixedsys;
+	font-size: 24pt;
+	width: 800px;
+	text-align: center;
 }

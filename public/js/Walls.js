@@ -98,6 +98,7 @@ Maze.Walls = (function () {
 	
 	// this implementation is dfs.
 	Walls.prototype.generate = function (x, y) {
+		Math.seedrandom(Maze.seed);
 		var current = { x: x, y: y };
 	
 		while (visited < total) {
@@ -156,9 +157,10 @@ Maze.Walls = (function () {
 	};
 	
 	Walls.prototype.createExits = function () {
+		Math.seedrandom(Maze.seed);
+
 		var side = Math.floor(Math.random()*4);
 		var side2;
-		
 		var derp = function (side) {
 			var exit = {};
 			

@@ -2,9 +2,12 @@
  * Module dependencies.
  */
 var express = require('express');
+var fs = require('fs');
 var exec = require('child_process').exec;
 
 var app = module.exports = express.createServer();
+
+var wins = [];
 
 // Configuration
 
@@ -31,8 +34,11 @@ app.get('/update', function (req, res) {
 	console.log('Updating...');
 });
 
-app.get('/win', function (req, res) {
-	console.log('win');
+app.get('/win/', function (req, res) {
+	console.log(req.connection.remoteAddress + ' won! seed: ' + req.query.seed + ' time: ' + req.query.time);
+	wins.push({ ip: req.connection.remoteAddress, seed: req.query.seed, time: req.query.time });
+	res.send('');
+	fs.writeFile('data.json', JSON.stringify(wins));
 });
 
 
