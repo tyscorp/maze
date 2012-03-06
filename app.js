@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 
 var app = module.exports = express.createServer();
 
-var wins = [];
+var wins = JSON.parse(fs.readFileSync('data.json'));
 
 // Configuration
 
@@ -26,17 +26,17 @@ app.get('/', function (req, res) {
 	res.render('index');
 });
 
-app.get('/update', function (req, res) {
+app.get('/update/sfjhkasryigd', function (req, res) {
+	console.log('Updating...');
 	exec('git stash; git pull', function (error, stdout, stderr) {
 		console.log(stdout);
 		res.send(stdout.replace(/\n/, '<br />'));
 	});
-	console.log('Updating...');
 });
 
 app.get('/win/', function (req, res) {
-	console.log(req.connection.remoteAddress + ' won! seed: ' + req.query.seed + ' time: ' + req.query.time);
-	wins.push({ ip: req.connection.remoteAddress, seed: req.query.seed, time: req.query.time });
+	console.log('[' + (new Date()).toISOString() + '] ' + (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] : req.connection.remoteAddress) + ' won! seed: ' + req.query.seed + ' time: ' + req.query.time);
+	wins.push({ timestamp: (new Date()).toISOString(), ip: req.connection.remoteAddress, seed: req.query.seed, time: req.query.time });
 	res.send('');
 	fs.writeFile('data.json', JSON.stringify(wins));
 });

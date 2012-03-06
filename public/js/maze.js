@@ -38,7 +38,7 @@ $(function () {
 	image.src = link.href;
 	image.onerror = function () {
 		state = STATE.START;
-		setTimeout(function () { requestAnimationFrame(draw) }, 100);
+		setTimeout(function () { requestAnimationFrame(draw) }, 500);
 	};
 	
 	// if that fails
@@ -144,7 +144,9 @@ $(function () {
 		}
 	});
 	
-	
+	setInterval(function () {
+		requestAnimationFrame(draw);
+	}, 100);
 	
 	requestAnimationFrame(draw);
 });

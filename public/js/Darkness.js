@@ -23,7 +23,8 @@ Maze.Darkness = (function () {
 	Darkness.prototype.processCollision = function (x, y, walls) {
 		darkArray[x][y] = false;
 		
-	/*	if (!(walls & Maze.DIR.LEFT)) {
+		// this would make it too easy. :(
+		/*if (!(walls & Maze.DIR.LEFT)) {
 			darkArray[x - 1][y] = false;
 		}
 		if (!(walls & Maze.DIR.UP)) {
@@ -35,7 +36,6 @@ Maze.Darkness = (function () {
 		if (!(walls & Maze.DIR.DOWN)) {
 			darkArray[x][y + 1] = false;
 		}*/
-		
 	};
 	
 	Darkness.prototype.draw = function (ctx) {
